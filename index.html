@@ -19,7 +19,7 @@ body{
     color:white;
 }
 
-/* ⭐ STARS */
+/* ⭐ stars */
 .star{
     position:absolute;
     width:2px;
@@ -35,6 +35,19 @@ body{
     to{opacity:1;}
 }
 
+/* floating text */
+.float{
+    position:absolute;
+    font-size:12px;
+    opacity:0.2;
+    animation:up 10s linear infinite;
+}
+
+@keyframes up{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-120vh);}
+}
+
 /* envelope */
 .envelope{
     width:200px;
@@ -47,7 +60,6 @@ body{
     align-items:center;
     cursor:pointer;
     transition:.6s;
-    z-index:10;
 }
 
 .envelope.open{
@@ -67,17 +79,19 @@ body{
     display:block;
 }
 
-/* floating text */
-.float{
-    position:absolute;
-    font-size:12px;
-    opacity:0.2;
-    animation:up 10s linear infinite;
+/* button */
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
 }
 
-@keyframes up{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-120vh);}
+/* extra message */
+.extra{
+    display:none;
+    margin-top:10px;
 }
 
 </style>
@@ -92,13 +106,20 @@ body{
 
 <!-- CARD -->
 <div class="card" id="card">
+
     <h2>Anghelita 🤍</h2>
+
     <p id="msg"></p>
+
+    <button onclick="showMessage()">Click Me</button>
+
+    <div class="extra" id="extra"></div>
+
 </div>
 
 <script>
 
-/* ⭐ STAR BACKGROUND */
+/* ⭐ stars */
 for(let i=0;i<80;i++){
     const s=document.createElement("div");
     s.className="star";
@@ -108,17 +129,24 @@ for(let i=0;i<80;i++){
     document.body.appendChild(s);
 }
 
-/* FLOATING TEXT */
+/* floating text */
+const floats=[
+"you're enough 🤍",
+"rest ka muna",
+"i'm proud of you",
+"breathe lang"
+];
+
 setInterval(()=>{
     const f=document.createElement("div");
     f.className="float";
-    f.innerHTML="you're enough 🤍";
+    f.innerHTML=floats[Math.floor(Math.random()*floats.length)];
     f.style.left=Math.random()*100+"vw";
     document.body.appendChild(f);
     setTimeout(()=>f.remove(),10000);
 },1500);
 
-/* OPEN LETTER */
+/* OPEN ENVELOPE */
 function openLetter(){
     document.getElementById("env").classList.add("open");
 
@@ -134,18 +162,23 @@ const text = `Alam ko hindi lagi madali.
 Pero okay lang mapagod.
 
 Pahinga ka lang.
-Nandito lang ako.
+Hindi ka nag-iisa 🤍`;
 
-Proud ako sayo 🤍`;
-
-let i=0;
+let i = 0;
 
 function typeWriter(){
-    if(i<text.length){
+    if(i < text.length){
         document.getElementById("msg").innerHTML += text.charAt(i);
         i++;
         setTimeout(typeWriter,30);
     }
+}
+
+/* CLICK ME */
+function showMessage(){
+    document.getElementById("extra").style.display="block";
+    document.getElementById("extra").innerHTML =
+    "Andito lang ako palagi 🤍<br>Proud ako sayo.";
 }
 
 </script>
