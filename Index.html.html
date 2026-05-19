@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Anghelita 🤍</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow-y:auto;
+    min-height:100vh;
+    background:linear-gradient(#0b1023,#1d2957);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    color:white;
+}
+
+/* ⭐ STARS */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:0.6;
+    animation:blink 2s infinite alternate;
+}
+
+@keyframes blink{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* envelope */
+.envelope{
+    width:200px;
+    height:130px;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:.6s;
+    z-index:10;
+}
+
+.envelope.open{
+    transform:scale(0.7);
+    opacity:0;
+}
+
+/* card */
+.card{
+    display:none;
+    text-align:center;
+    padding:20px;
+    max-width:400px;
+}
+
+.card.show{
+    display:block;
+}
+
+/* floating text */
+.float{
+    position:absolute;
+    font-size:12px;
+    opacity:0.2;
+    animation:up 10s linear infinite;
+}
+
+@keyframes up{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-120vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+<div class="envelope" id="env" onclick="openLetter()">
+    Tap to open 🤍
+</div>
+
+<!-- CARD -->
+<div class="card" id="card">
+    <h2>Anghelita 🤍</h2>
+    <p id="msg"></p>
+</div>
+
+<script>
+
+/* ⭐ STAR BACKGROUND */
+for(let i=0;i<80;i++){
+    const s=document.createElement("div");
+    s.className="star";
+    s.style.top=Math.random()*100+"vh";
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(Math.random()*2+1)+"s";
+    document.body.appendChild(s);
+}
+
+/* FLOATING TEXT */
+setInterval(()=>{
+    const f=document.createElement("div");
+    f.className="float";
+    f.innerHTML="you're enough 🤍";
+    f.style.left=Math.random()*100+"vw";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),10000);
+},1500);
+
+/* OPEN LETTER */
+function openLetter(){
+    document.getElementById("env").classList.add("open");
+
+    setTimeout(()=>{
+        document.getElementById("env").style.display="none";
+        document.getElementById("card").classList.add("show");
+        typeWriter();
+    },600);
+}
+
+/* MESSAGE */
+const text = `Alam ko hindi lagi madali.
+Pero okay lang mapagod.
+
+Pahinga ka lang.
+Nandito lang ako.
+
+Proud ako sayo 🤍`;
+
+let i=0;
+
+function typeWriter(){
+    if(i<text.length){
+        document.getElementById("msg").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,30);
+    }
+}
+
+</script>
+
+</body>
+</html>
